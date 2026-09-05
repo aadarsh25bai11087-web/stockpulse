@@ -79,20 +79,53 @@ Full UML (use case, class, sequence) and ER diagrams are in [`docs/diagrams/`](d
 
 ## Steps to Install & Run
 
-**Prerequisites:** JDK 17+ and Maven (both installable via Homebrew on macOS: `brew install openjdk@17 maven`).
+This is a pure command-line application — no GUI, no IDE, and no external database server are required. Everything below works in a plain terminal.
+
+### 1. Prerequisites
+
+You need **JDK 17 or newer** and **Apache Maven 3.6+**. Check what you already have:
 
 ```bash
-git clone <this-repository-url>
-cd java
+java -version
+mvn -version
+```
 
-# Build, run tests, and package a runnable jar
+If either command is missing or reports a version older than the above, install them:
+
+| OS | Install |
+|---|---|
+| macOS | `brew install openjdk@17 maven` (requires [Homebrew](https://brew.sh)) |
+| Ubuntu/Debian | `sudo apt update && sudo apt install openjdk-17-jdk maven` |
+| Windows | Install [Eclipse Temurin JDK 17](https://adoptium.net/) and [Maven](https://maven.apache.org/download.cgi), then add both to your `PATH` |
+
+No IDE, application server, or manual JDK/Maven configuration beyond having them on your `PATH` is needed — Maven resolves every dependency (including the embedded H2 database driver and JUnit) automatically from Maven Central on first build.
+
+### 2. Clone the repository
+
+```bash
+git clone https://github.com/aadarsh25bai11087-web/stockpulse.git
+cd stockpulse
+```
+
+### 3. Configuration
+
+**None required.** The app uses an embedded, file-based H2 database that is created automatically on first run at `data/stockpulse.mv.db` — there is no connection string, credentials, port, or `.env` file to set up.
+
+### 4. Build
+
+```bash
 mvn clean package
+```
 
-# Run the app
+This compiles the project, runs the full test suite, and produces a single self-contained runnable jar at `target/stockpulse.jar` (all dependencies bundled in — nothing else needs to be on the classpath).
+
+### 5. Run
+
+```bash
 java -jar target/stockpulse.jar
 ```
 
-On first run the app seeds a default catalogue of six assets (three stocks, two cryptocurrencies, one mutual fund) and a portfolio with ₹100,000 starting cash. On every subsequent run it loads your saved portfolio and last known prices from `data/stockpulse.mv.db`.
+You'll see a numbered menu (reproduced in full under [Sample Session](#sample-session) below). On first run the app seeds a default catalogue of six assets (three stocks, two cryptocurrencies, one mutual fund) and a portfolio with ₹100,000 starting cash. On every subsequent run it loads your saved portfolio and last known prices back from `data/stockpulse.mv.db`, so progress persists across runs.
 
 ## Instructions for Testing
 
