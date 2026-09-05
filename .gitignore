@@ -1,0 +1,24 @@
+# Build output
+target/
+*.class
+dependency-reduced-pom.xml
+
+# Runtime database and generated data (schema lives in src/, not the DB file itself)
+data/*.mv.db
+data/*.trace.db
+data/*.lock.db
+data/trade_log.txt
+data/holdings_export.csv
+data/transactions_export.csv
+!data/.gitkeep
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store

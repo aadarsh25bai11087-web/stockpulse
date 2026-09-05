@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>StockPulse Project Report</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2.2cm 1.8cm 2.4cm 1.8cm;
+    @bottom-center {
+      content: "StockPulse — CSE2006 Programming in Java — Page " counter(page) " of " counter(pages);
+      font-size: 8.5pt;
+      color: #667;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #1c1e26;
+    font-size: 10.6pt;
+    line-height: 1.5;
+  }
+  h1, h2, h3 { color: #1a2b4c; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  h1 { font-size: 20pt; margin-bottom: 4pt; }
+  h2 {
+    font-size: 14.5pt;
+    border-bottom: 2px solid #2f5aa8;
+    padding-bottom: 4pt;
+    margin-top: 0;
+  }
+  h3 { font-size: 11.5pt; color: #2f5aa8; margin-bottom: 4pt; }
+  .section { page-break-before: always; padding-top: 4pt; }
+  .section:first-of-type { page-break-before: auto; }
+  code, pre {
+    font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 9pt;
+  }
+  pre.term {
+    background: #1c1e26;
+    color: #d8e0f0;
+    padding: 10pt 12pt;
+    border-radius: 6pt;
+    overflow-x: auto;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+  pre.term .cmd { color: #7fd6a8; }
+  code.inline {
+    background: #eef1f8;
+    padding: 1pt 4pt;
+    border-radius: 3pt;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 8pt 0 14pt 0;
+    font-size: 9.7pt;
+  }
+  th, td {
+    border: 1px solid #c8cede;
+    padding: 5pt 8pt;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #eaf0fb; color: #1a2b4c; }
+  .diagram-figure {
+    text-align: center;
+    margin: 14pt 0;
+  }
+  .diagram-figure img {
+    max-width: 100%;
+    border: 1px solid #dde3f0;
+    border-radius: 4pt;
+    padding: 6pt;
+    background: white;
+  }
+  .caption {
+    font-size: 9pt;
+    color: #555;
+    margin-top: 4pt;
+    font-style: italic;
+  }
+  .cover {
+    height: 24cm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .cover .badge {
+    width: 88pt;
+    height: 88pt;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2f5aa8, #6fa1e8);
+    color: white;
+    font-size: 32pt;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18pt;
+  }
+  .cover h1 { font-size: 30pt; margin-bottom: 2pt; }
+  .cover .subtitle { font-size: 13pt; color: #445; margin-bottom: 26pt; }
+  .cover table.meta {
+    margin-top: 10pt;
+    font-size: 11pt;
+  }
+  .cover table.meta td { border: none; padding: 3pt 12pt; }
+  .cover table.meta td.k { color: #667; text-align: right; }
+  .cover table.meta td.v { font-weight: 600; text-align: left; }
+  .callout {
+    background: #eef4ff;
+    border-left: 4px solid #2f5aa8;
+    padding: 8pt 12pt;
+    margin: 10pt 0;
+    font-size: 9.8pt;
+  }
+  .callout.warn {
+    background: #fff6ea;
+    border-left-color: #c8791a;
+  }
+  ol.toc { font-size: 10.5pt; line-height: 1.9; }
+  ol.toc a { color: #1a2b4c; text-decoration: none; }
+  .rubric-note {
+    font-size: 9pt;
+    color: #2f5aa8;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER PAGE ===================== -->
+<section class="cover">
+  <div class="badge">SP</div>
+  <h1>StockPulse</h1>
+  <div class="subtitle">A Multi-threaded Portfolio &amp; Market Simulation System</div>
+  <table class="meta">
+    <tr><td class="k">Course</td><td class="v">CSE2006 — Programming in Java</td></tr>
+    <tr><td class="k">Assignment</td><td class="v">VITyarthi — Build Your Own Project</td></tr>
+    <tr><td class="k">Student</td><td class="v">Aadarsh</td></tr>
+    <tr><td class="k">Registration</td><td class="v">25BAI11087</td></tr>
+    <tr><td class="k">Institution</td><td class="v">VIT Bhopal University</td></tr>
+    <tr><td class="k">Date</td><td class="v">September 2026</td></tr>
+  </table>
+</section>
+
+<!-- ===================== TOC ===================== -->
+<section class="section">
+<h2>Table of Contents</h2>
+<ol class="toc">
+  <li>Introduction</li>
+  <li>Problem Statement</li>
+  <li>Functional Requirements</li>
+  <li>Non-Functional Requirements</li>
+  <li>System Architecture</li>
+  <li>Design Diagrams</li>
+  <li>Design Decisions &amp; Rationale</li>
+  <li>Implementation Details</li>
+  <li>Screenshots / Results</li>
+  <li>Testing Approach</li>
+  <li>Challenges Faced</li>
+  <li>Learnings &amp; Key Takeaways</li>
+  <li>Future Enhancements</li>
+  <li>References</li>
+</ol>
+</section>
+
+<!-- ===================== 1. INTRODUCTION ===================== -->
+<section class="section">
+<h2>1. Introduction</h2>
+<p>
+StockPulse is a console-based Java application built for the CSE2006 (Programming in Java) "Build Your Own
+Project" assignment. It simulates a single investor managing a multi-asset portfolio — stocks, cryptocurrencies,
+and mutual funds — against a market whose prices move continuously in the background while trades are placed.
+</p>
+<p>
+The project was deliberately scoped to exercise, in one coherent domain, every unit of the CSE2006 syllabus:
+object-oriented design (Unit 2), exception handling and multithreading with real synchronization (Unit 3),
+the Collections framework and I/O streams (Unit 4), and JDBC-based persistence (Unit 5). Rather than bolting
+these on separately, each concept is load-bearing: the market simulator genuinely needs a background thread,
+the trading engine genuinely needs synchronization to avoid a race between a price update and an order, and the
+JDBC layer genuinely needs to survive an application restart.
+</p>
+</section>
+
+<!-- ===================== 2. PROBLEM STATEMENT ===================== -->
+<section class="section">
+<h2>2. Problem Statement</h2>
+<p>
+Retail and student investors holding a small, mixed portfolio have no lightweight way to track holdings and
+profit/loss without spreadsheet arithmetic or a full brokerage account they don't need. Separately, most
+classroom demonstrations of Java concurrency use a toy counter, which does not show a student <em>why</em>
+synchronization matters — nothing visibly breaks if it's done wrong. StockPulse addresses both: it is a small,
+self-contained portfolio tracker, and its core trading loop is a scenario where an unsynchronized read of a
+live-changing price would produce an incorrect trade.
+</p>
+<h3>Scope</h3>
+<table>
+  <tr><th>In scope</th><th>Out of scope</th></tr>
+  <tr>
+    <td>Single-portfolio, single-user simulation; three asset types (stock, crypto, mutual fund); a simulated
+        live price feed; a text console interface; JDBC persistence.</td>
+    <td>Graphical user interface; a real market-data API integration; multiple concurrent user portfolios.</td>
+  </tr>
+</table>
+<h3>Target Users</h3>
+<p>Students learning investment concepts who want a safe, zero-risk simulation, and anyone wanting a minimal,
+self-hosted way to track a small multi-asset portfolio.</p>
+</section>
+
+<!-- ===================== 3. FUNCTIONAL REQUIREMENTS ===================== -->
+<section class="section">
+<h2>3. Functional Requirements</h2>
+<p>The brief requires at least three major functional modules with a clear input/output structure and a logical
+user workflow. StockPulse implements exactly this as three modules:</p>
+<table>
+  <tr><th>#</th><th>Module</th><th>Responsibility</th></tr>
+  <tr>
+    <td>1</td>
+    <td><strong>Portfolio &amp; Asset Management</strong></td>
+    <td>Maintains the asset catalogue and the investor's cash + holdings; persists both via JDBC
+        (<code class="inline">AssetDao</code>, <code class="inline">PortfolioDao</code>).</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><strong>Trading Engine</strong></td>
+    <td>Validates and executes buy/sell orders against live prices; rejects invalid orders with a specific,
+        typed exception (<code class="inline">TradingEngine</code>).</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><strong>Market Simulation &amp; Analytics</strong></td>
+    <td>Runs the background live-price thread and computes net worth, per-holding P&amp;L, and best/worst
+        performer (<code class="inline">MarketDataSimulator</code>, <code class="inline">AnalyticsService</code>).</td>
+  </tr>
+</table>
+<p>Every module exposes a clear input (console menu choice + typed arguments) and output (console text, a
+persisted database row, or a CSV/log file), and the console menu enforces one logical workflow: view state →
+place an order → see the updated state or a rejection reason.</p>
+</section>
+
+<!-- ===================== 4. NON-FUNCTIONAL REQUIREMENTS ===================== -->
+<section class="section">
+<h2>4. Non-Functional Requirements</h2>
+<table>
+  <tr><th>Requirement</th><th>How it is addressed</th></tr>
+  <tr>
+    <td><strong>Performance</strong></td>
+    <td>Price reads/writes use a lock-free <code class="inline">AtomicReference</code> per asset instead of a
+        shared lock, so the simulator ticking every few seconds never blocks a trade and vice versa.</td>
+  </tr>
+  <tr>
+    <td><strong>Reliability</strong></td>
+    <td>Every buy/sell either fully applies (cash debited, holding updated, transaction logged) or fully fails
+        with an exception — there is no code path that leaves the portfolio in a half-updated state.</td>
+  </tr>
+  <tr>
+    <td><strong>Security</strong></td>
+    <td>All SQL is parameterized through <code class="inline">PreparedStatement</code>; no string-concatenated
+        SQL exists anywhere in the DAO layer, eliminating SQL injection by construction.</td>
+  </tr>
+  <tr>
+    <td><strong>Usability</strong></td>
+    <td>A single numbered menu with consistent prompts; every rejected action prints a specific, actionable
+        reason instead of a stack trace.</td>
+  </tr>
+  <tr>
+    <td><strong>Maintainability</strong></td>
+    <td>Strict package-by-responsibility layout (<code class="inline">model</code>, <code class="inline">exception</code>,
+        <code class="inline">dao</code>, <code class="inline">service</code>, <code class="inline">market</code>,
+        <code class="inline">io</code>, <code class="inline">cli</code>) so each concern can be read, tested, and
+        changed independently.</td>
+  </tr>
+  <tr>
+    <td><strong>Logging / Auditability</strong></td>
+    <td>Every executed trade is appended to both the <code class="inline">transactions</code> database table and
+        a plain-text <code class="inline">data/trade_log.txt</code> audit file.</td>
+  </tr>
+</table>
+</section>
+
+<!-- ===================== 5. SYSTEM ARCHITECTURE ===================== -->
+<section class="section">
+<h2>5. System Architecture</h2>
+<p>The application is layered so that the frequently-changing, in-memory market state stays off the database's
+hot path, while trades — infrequent but must never be lost — are written through immediately.</p>
+<div class="diagram-figure">
+  <img src="assets/architecture.png" alt="System architecture diagram">
+  <div class="caption">Figure 1 — Layered architecture. Solid arrows are method calls; the shaded persistence
+  layer is touched only at startup, on each trade, and at shutdown — never on every simulator tick.</div>
+</div>
+</section>
+
+<!-- ===================== 6. DESIGN DIAGRAMS ===================== -->
+<section class="section">
+<h2>6. Design Diagrams</h2>
+
+<h3>6.1 Use Case Diagram</h3>
+<div class="diagram-figure">
+  <img src="assets/use-case.png" alt="Use case diagram">
+  <div class="caption">Figure 2 — All eight investor-facing actions the console exposes.</div>
+</div>
+
+<h3>6.2 Process Flow / Workflow Diagram</h3>
+<div class="diagram-figure">
+  <img src="assets/workflow.png" alt="Workflow diagram">
+  <div class="caption">Figure 3 — Application lifecycle from launch to graceful shutdown.</div>
+</div>
+
+<h3>6.3 Class Diagram</h3>
+<div class="diagram-figure">
+  <img src="assets/class-diagram.png" alt="Class diagram">
+  <div class="caption">Figure 4 — Domain model and the services operating on it.</div>
+</div>
+
+<h3>6.4 Sequence Diagram — Placing a Buy Order</h3>
+<div class="diagram-figure">
+  <img src="assets/sequence-diagram.png" alt="Sequence diagram for placing a buy order">
+  <div class="caption">Figure 5 — The background simulator (top) runs concurrently with the order path; the
+  engine's synchronized block is what keeps a trade's price-read-then-act sequence atomic despite that.</div>
+</div>
+
+<h3>6.5 ER Diagram</h3>
+<div class="diagram-figure">
+  <img src="assets/er-diagram.png" alt="Entity relationship diagram">
+  <div class="caption">Figure 6 — Matches <code class="inline">src/main/resources/schema.sql</code> exactly.</div>
+</div>
+</section>
+
+<!-- ===================== 7. DESIGN DECISIONS ===================== -->
+<section class="section">
+<h2>7. Design Decisions &amp; Rationale</h2>
+
+<h3>7.1 Embedded H2 instead of MySQL/Postgres</h3>
+<p>The brief asks for JDBC-based persistence but does not mandate a specific engine. An embedded, file-based H2
+database was chosen over a networked server so the project can be cloned and run with <code class="inline">mvn
+clean package &amp;&amp; java -jar target/stockpulse.jar</code> alone — no separate database server to install,
+configure, or have running for a grader to reproduce the build.</p>
+
+<h3>7.2 Lock-free price publication via <code class="inline">AtomicReference</code></h3>
+<p>An earlier draft stored each asset's price as a plain <code class="inline">double</code> field, synchronized
+on the asset for both reads and writes. That would have meant every single console read of a price (the menu
+prints market prices constantly) contends for the same lock the simulator thread acquires every tick. Since a
+price is a single immutable value being replaced, not accumulated, <code class="inline">AtomicReference&lt;Double&gt;</code>
+gives every reader a consistent, current value with no blocking and no torn reads — a deliberately narrower
+guarantee than a full lock, chosen because it's exactly the guarantee this problem needs.</p>
+
+<h3>7.3 Synchronizing the trading engine, not the market</h3>
+<p>A trade is a multi-step sequence — read price, check funds/holdings, mutate the portfolio, log the
+transaction — that must appear atomic even though the price itself may move again the instant after it's read.
+<code class="inline">TradingEngine.buy</code>/<code class="inline">sell</code> are therefore
+<code class="inline">synchronized</code> on the engine instance, so two orders can never interleave their
+check-then-act steps, while the simulator remains completely free to keep mutating prices without ever touching
+that lock.</p>
+
+<h3>7.4 Separating DAO save/load from the per-tick simulation loop</h3>
+<p>Persisting every price change would make the database a bottleneck for what is otherwise a lock-free update
+and would generate an enormous, useless write volume. Prices are instead loaded once at startup and snapshotted
+once at a graceful shutdown; only trades, which are comparatively rare and must never be lost, are written
+immediately as they occur. See §5, Figure 1.</p>
+
+<h3>7.5 Checked exceptions for rejected orders</h3>
+<p><code class="inline">InvalidSymbolException</code>, <code class="inline">InsufficientFundsException</code>,
+and <code class="inline">InsufficientHoldingsException</code> are checked exceptions, not unchecked. A rejected
+trade is an expected, routine outcome of user input (unlike a real bug), and making it checked forces every call
+site — currently just <code class="inline">ConsoleUI</code>, but any future caller too — to explicitly decide how
+to present the rejection rather than letting it silently propagate.</p>
+</section>
+
+<!-- ===================== 8. IMPLEMENTATION DETAILS ===================== -->
+<section class="section">
+<h2>8. Implementation Details</h2>
+<p>The codebase is organized into eight packages under <code class="inline">com.stockpulse</code>, totaling 19
+source files plus 3 test classes (12 test methods):</p>
+<table>
+  <tr><th>Package</th><th>Classes</th><th>Purpose</th></tr>
+  <tr>
+    <td><code class="inline">model</code></td>
+    <td>AssetType, OrderType, Tradable, Asset, Stock, CryptoAsset, MutualFund, Holding, Portfolio, Transaction</td>
+    <td>The OOP domain: an abstract <code class="inline">Asset</code> implementing <code class="inline">Tradable</code>,
+        specialized by three concrete asset types with different volatility bands, plus the portfolio/holding/
+        transaction value objects.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">exception</code></td>
+    <td>InvalidSymbolException, InsufficientFundsException, InsufficientHoldingsException</td>
+    <td>Custom checked exceptions for every way an order can be rejected.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">db</code></td>
+    <td>DatabaseManager</td>
+    <td>Owns the single JDBC connection and bootstraps the schema from <code class="inline">schema.sql</code> on
+        first run.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">dao</code></td>
+    <td>AssetDao, PortfolioDao, TransactionDao</td>
+    <td>All SQL access, exclusively through <code class="inline">PreparedStatement</code>.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">market</code></td>
+    <td>MarketDataSimulator</td>
+    <td>The background <code class="inline">Runnable</code> thread that drives price movement.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">service</code></td>
+    <td>TradingEngine, AnalyticsService</td>
+    <td>Order execution and portfolio analytics — the two classes exercised most heavily by the test suite.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">io</code></td>
+    <td>CsvExporter, TradeLogger</td>
+    <td>Character-stream file I/O (<code class="inline">BufferedWriter</code>/<code class="inline">FileWriter</code>),
+        independent of the JDBC layer.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">cli</code></td>
+    <td>ConsoleUI</td>
+    <td>The <code class="inline">Scanner</code>-driven menu loop and the only class that talks to
+        <code class="inline">System.in</code>/<code class="inline">out</code>.</td>
+  </tr>
+</table>
+
+<h3>8.1 Key Concepts Demonstrated per Syllabus Unit</h3>
+<table>
+  <tr><th>Syllabus Unit</th><th>Where in this project</th></tr>
+  <tr><td>Unit 1 — Flow control</td><td>Menu dispatch (<code class="inline">switch</code> expression in
+      <code class="inline">ConsoleUI.run</code>), loops throughout DAOs and the simulator.</td></tr>
+  <tr><td>Unit 2 — OOP</td><td>Abstract classes, interfaces, inheritance, polymorphism, and enums across the
+      <code class="inline">model</code> package.</td></tr>
+  <tr><td>Unit 3 — Exceptions &amp; multithreading</td><td>Custom checked exceptions, multi-catch in
+      <code class="inline">ConsoleUI</code>; <code class="inline">MarketDataSimulator</code> as a dedicated
+      daemon thread; <code class="inline">synchronized</code> methods in <code class="inline">TradingEngine</code>.</td></tr>
+  <tr><td>Unit 4 — Collections &amp; I/O streams</td><td><code class="inline">ConcurrentHashMap</code> for
+      holdings/market, <code class="inline">List</code> for transaction history;
+      <code class="inline">BufferedWriter</code>/<code class="inline">FileWriter</code> in the
+      <code class="inline">io</code> package.</td></tr>
+  <tr><td>Unit 5 — JDBC</td><td>The entire <code class="inline">db</code>/<code class="inline">dao</code>
+      packages.</td></tr>
+</table>
+</section>
+
+<!-- ===================== 9. SCREENSHOTS / RESULTS ===================== -->
+<section class="section">
+<h2>9. Screenshots / Results</h2>
+<p>As a console application, "screenshots" are captured here as literal terminal transcripts from a real run
+(reproduced verbatim, not re-typed), which is a more precise record than a screen image for a text interface.</p>
+
+<h3>9.1 Startup and Market View</h3>
+<pre class="term">$ <span class="cmd">java -jar target/stockpulse.jar</span>
+=================================================
+ StockPulse - Multi-threaded Portfolio Simulator
+ Prices update live in the background every few
+ seconds while you trade.
+=================================================
+
+1) View market   2) View portfolio   3) Buy   4) Sell
+5) Transaction history   6) Analytics report
+7) Export holdings CSV   8) Export transactions CSV   0) Exit
+&gt; 1
+
+BTC    Bitcoin                6182730.65  [CRYPTO]
+ETH    Ethereum                300491.79  [CRYPTO]
+HDFC   HDFC Bank Ltd             1663.36  [STOCK]
+INFY   Infosys Ltd               1508.78  [STOCK]
+NIFB   Nifty Bluechip Fund        250.48  [MUTUAL_FUND]
+TATA   Tata Motors Ltd            961.58  [STOCK]</pre>
+
+<h3>9.2 A Successful Buy, and an Order Rejected by Exception Handling</h3>
+<pre class="term">&gt; 3
+Symbol: INFY
+Quantity: 20
+Executed: #1  2026-09-05T23:48:30.348017  BUY  INFY  qty=20  price=1508.78  total=30175.60
+
+&gt; 3
+Symbol: BTC
+Quantity: 1
+Order rejected: Order requires 6182730.65 but only 69824.40 is available</pre>
+<p class="caption">The second order is rejected by a genuine <code class="inline">InsufficientFundsException</code>
+thrown from <code class="inline">TradingEngine.buy</code> — not a hypothetical case, this is the actual exception
+message produced by the running program.</p>
+
+<h3>9.3 Sell, Transaction History, and the Analytics Report</h3>
+<pre class="term">&gt; 4
+Symbol: INFY
+Quantity: 5
+Executed: #2  2026-09-05T23:48:30.350098  SELL  INFY  qty=5  price=1508.78  total=7543.90
+
+&gt; 5
+#1  2026-09-05T23:48:30.348017 BUY  INFY qty=20 price=1508.78 total=30175.60
+#2  2026-09-05T23:48:30.350098 SELL INFY qty=5  price=1508.78 total=7543.90
+
+&gt; 6
+
+===== Portfolio Report: Aadarsh =====
+Cash balance:          77368.30
+Holdings value:         22631.70
+Net worth:             100000.00
+Total trades:                  2
+
+SYM    QTY  AVG COST    PRICE       P&amp;L
+INFY   15   1508.78     1508.78     0.00
+
+Best performer:  INFY (0.00%)
+Worst performer: INFY (0.00%)</pre>
+</section>
+
+<!-- ===================== 10. TESTING APPROACH ===================== -->
+<section class="section">
+<h2>10. Testing Approach</h2>
+<p>The suite uses JUnit 5 and runs via <code class="inline">mvn test</code>. 12 tests across 3 classes, all
+passing:</p>
+<table>
+  <tr><th>Test class</th><th>What it verifies</th></tr>
+  <tr>
+    <td><code class="inline">PortfolioTest</code> (4 tests)</td>
+    <td>Weighted-average cost-basis math across repeated buys; a holding is fully removed once its quantity
+        reaches zero; net worth correctly combines cash and marked-to-market holdings; unrealized P&amp;L sign
+        and magnitude.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">TradingEngineTest</code> (6 tests)</td>
+    <td>A valid buy debits cash and creates a holding; a buy that costs more than available cash throws
+        <code class="inline">InsufficientFundsException</code>; buying/selling an unknown symbol throws
+        <code class="inline">InvalidSymbolException</code>; selling more than is held throws
+        <code class="inline">InsufficientHoldingsException</code>; a sell after a buy correctly reduces the
+        holding and credits cash; every executed trade is actually persisted via
+        <code class="inline">TransactionDao</code>.</td>
+  </tr>
+  <tr>
+    <td><code class="inline">MarketDataSimulatorTest</code> (2 tests)</td>
+    <td>A single tick never moves any asset's price beyond its own volatility band; the background thread starts
+        and stops cleanly (a real concurrency smoke test — this exercises the actual worker thread, not a
+        mocked one).</td>
+  </tr>
+</table>
+<p><code class="inline">TradingEngineTest</code> runs against a fresh, isolated in-memory H2 database
+(<code class="inline">jdbc:h2:mem:&lt;random-uuid&gt;</code>) created in <code class="inline">@BeforeEach</code>
+and discarded in <code class="inline">@AfterEach</code>, so the test suite never touches, seeds, or corrupts the
+real <code class="inline">data/stockpulse.mv.db</code> file used by the actual application.</p>
+<div class="callout">
+<strong>Manual end-to-end verification performed beyond the automated suite:</strong> a full scripted console
+session (buy, sell, export, exit, then relaunch) was run against the real packaged jar to confirm that the
+portfolio, holdings, and last-known prices are correctly restored from disk after a process restart — see §11
+for a bug this manual pass actually caught.
+</div>
+</section>
+
+<!-- ===================== 11. CHALLENGES FACED ===================== -->
+<section class="section">
+<h2>11. Challenges Faced</h2>
+
+<h3>11.1 A real shutdown-hook race condition</h3>
+<p>The first working version registered a single <code class="inline">Runtime.getRuntime().addShutdownHook(...)</code>
+to save the portfolio and close the database, and called <code class="inline">System.exit(0)</code> after the
+menu loop exited normally. Manual end-to-end testing (not the unit tests, which are too narrow to catch this)
+immediately produced:</p>
+<pre class="term">Exception in thread "Thread-2" java.lang.IllegalStateException: Failed to save the portfolio
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The database is open in exclusive
+mode; can not open additional connections</pre>
+<p><strong>Root cause:</strong> the JVM runs all registered shutdown hooks <em>concurrently</em>, on separate
+threads, with no ordering guarantee — H2 registers its own internal shutdown hook, and that hook was racing
+against this project's save-and-close hook over the same connection. Calling <code class="inline">System.exit</code>
+after an already-complete, ordinary program exit doesn't avoid this: shutdown hooks fire on <em>any</em> JVM
+termination, not only an explicit <code class="inline">exit</code> call.</p>
+<p><strong>Fix:</strong> the save-and-close sequence is now invoked <em>synchronously, directly</em> on the main
+thread immediately after the menu loop returns — before the JVM begins any shutdown sequence at all. The
+registered shutdown hook still exists, but only as a fallback for an abrupt termination (Ctrl+C/kill), and an
+<code class="inline">AtomicBoolean</code> guard ensures the save-and-close logic never runs twice. See
+<code class="inline">Main.java</code> for the guarded <code class="inline">shutdownOnce</code> runnable.</p>
+
+<h3>11.2 Choosing a volatility model realistic enough to be meaningful</h3>
+<p>An early version applied the same percentage swing to every asset, which made the "best/worst performer"
+analytics feature meaningless — everything moved by roughly the same amount. Giving each asset type its own
+volatility band (mutual fund 0.5%, stock 2%, crypto 8% per tick) was a small change that made the simulation
+behave recognizably like the real domain it models, and gave the analytics module something genuine to report
+on.</p>
+</section>
+
+<!-- ===================== 12. LEARNINGS ===================== -->
+<section class="section">
+<h2>12. Learnings &amp; Key Takeaways</h2>
+<ul>
+<li>A background thread mutating shared state needs a concurrency story for <em>every</em> field it touches, not
+just the ones that "feel" concurrent — the fix in §11.1 came from a JVM-level guarantee (shutdown hooks run
+concurrently) that has nothing to do with the application's own threads.</li>
+<li><code class="inline">AtomicReference</code> is often a better fit than <code class="inline">synchronized</code>
+for a single, frequently-read, infrequently-replaced value — it was the difference between the simulator and the
+console contending for a lock on every price read versus never contending at all.</li>
+<li>Separating what must be synchronous and durable (a trade) from what can be eventually-consistent and
+in-memory (a price tick) is a persistence design decision, not just a performance one — get it wrong and either
+the database becomes a bottleneck or a real trade can be lost.</li>
+<li>Manual end-to-end testing caught a bug (§11.1) that the unit test suite structurally could not have: the race
+only exists at real JVM shutdown, a lifecycle event no in-process JUnit test exercises.</li>
+</ul>
+</section>
+
+<!-- ===================== 13. FUTURE ENHANCEMENTS ===================== -->
+<section class="section">
+<h2>13. Future Enhancements</h2>
+<ul>
+<li>Replace the console front-end with a JavaFX or Swing GUI, including a live-updating price ticker driven by
+the same <code class="inline">MarketDataSimulator</code>.</li>
+<li>Replace the simulated feed with a real market-data API (e.g. a free-tier stock/crypto price API) behind the
+same <code class="inline">Tradable</code> interface, so no other layer would need to change.</li>
+<li>Support multiple named portfolios per user, and eventually multiple concurrent users trading against one
+shared market — the current single-engine <code class="inline">synchronized</code> design was deliberately kept
+simple for one portfolio, and would need a per-portfolio lock strategy to extend safely.</li>
+<li>Add a limit-order type (execute only once the market crosses a target price) instead of only immediate
+market orders.</li>
+</ul>
+</section>
+
+<!-- ===================== 14. REFERENCES ===================== -->
+<section class="section">
+<h2>14. References</h2>
+<ol>
+<li>Herbert Schildt, <em>Java: The Complete Reference</em>, 11th Edition, Oracle Press, 2018. (Course textbook.)</li>
+<li>Deitel &amp; Deitel, <em>Java How to Program (Early Objects)</em>, 10th Edition, Pearson, 2015.</li>
+<li>Cay S. Horstmann and Gary Cornell, <em>Core Java Vol. I – Fundamentals</em>, 8th Edition, Pearson, 2011.</li>
+<li>Steven Holzner et al., <em>Java 2 Black Book</em>, Dreamtech Press, Reprint 2010.</li>
+<li>Oracle, <em>Java Platform, Standard Edition Documentation</em> — <code class="inline">java.util.concurrent</code>,
+<code class="inline">java.sql</code>, and <code class="inline">java.io</code> package specifications.</li>
+<li>H2 Database Engine documentation — <a href="https://www.h2database.com/html/main.html">h2database.com</a>.</li>
+<li>CSE2006 — Programming in Java, Course Handout, VIT Bhopal (Prepared by Dr. Lakshmi D; Compiled by Dr. M.
+Ashwin &amp; Dr. Sandip Mal), recommended by the Board of Studies on 27.12.2021.</li>
+</ol>
+</section>
+
+</body>
+</html>
